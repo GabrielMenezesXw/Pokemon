@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Pokemon</title>
+</head>
+
+<body>
+    <div>
+        <div  style="position: absolute; top: 20%; left: 43.5%; width: 300px; height: 100px; font-size: 40px; font-style: bold;">>Selecione o ID de um Pokémon</div>
+        <div class="card_busca">
+            <input id="namePokemon" type="text">
+            <button onclick="buscarPokemon()">Buscar</button>
+        </div>
+
+        <div class="pokemon">
+            <img width="120" id="imagemPoke" src="" alt="">
+
+            <div id="resultado"></div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function buscarPokemon() {
+        const namePokemon = document.getElementById("namePokemon").value
+
+        $.ajax({
+            url: "https://pokeapi.co/api/v2/pokemon/" + namePokemon,
+            type: "get",
+            success: function (result) {
+
+                document.getElementById("imagemPoke").src = result.sprites.front_default
+
+                const textoResultado = `
+                <ul>
+                    <li>${result.name}</li>
+                    
+                </ul>
+                `
+                document.getElementById("resultado").innerHTML = textoResultado
+            }
+        });
+    }
+</script>
+
+<style>
+    .pokemon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: #555;
+        color: white;
+        font-size: 24px;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .card_busca {
+        position: absolute;
+        top: 30%;
+        left: 43.5%;
+        background-color: lightblue;
+        border: solid black 2px;
+        width: fit-content;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    .texto {
+        position: absolute;
+        top:20%
+    }
+</style>
