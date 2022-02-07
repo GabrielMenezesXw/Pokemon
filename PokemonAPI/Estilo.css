@@ -1,0 +1,19 @@
+.container {
+    background-color: yellow;
+    display: grid;
+}
+.cabecalho{
+    background-color: gray;
+}
+
+.corpo {
+    background-color: red;
+}
+
+.lateral {
+    background-color: brown;
+}
+
+.rodape {
+    background-color: blue;
+}

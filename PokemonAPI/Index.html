@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Projeto Pokemon</title>
+</head>
+
+<body id="grid-container">
+    <header class="grid-header-item">Site</header>
+    <main class="grid-corpo-item main-flex-container">
+        <div class="pokedex">
+            <div class="visor">
+                <img id="imagemPoke" src="" alt="">
+            </div>
+            <div clas="botao-dex"></div>
+        </div>
+        <div class="busca">
+            <input id="namePokemon" type="text">
+            <button onclick="buscarPokemon()" id="search_button">Buscar</button>
+        </div>
+    </main>
+    <side class="grid-lateral-item side-flex">
+        <a href="">LINK 1</a>
+        <a href="">LINK 2</a>
+        <a href="">LINK 3</a>
+    </side>
+    <footer class="grid-footer-item">Rodapé</footer>
+</body>
+
+</html>
+<style>
+    html,
+    body {
+        margin: 0px;
+    }
+
+    /* Layout */
+    #grid-container {
+        background-color: black;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 0.3fr 0.7fr;
+        grid-template-rows: 0.3fr 1fr 0.3fr;
+        gap: 6px;
+        grid-template-areas:
+            "header header"
+            "lateral corpo"
+            "footer footer";
+    }
+
+    .grid-header-item {
+        grid-area: header;
+        background-color: red;
+    }
+
+    .grid-corpo-item {
+        grid-area: corpo;
+        background-color: cyan;
+    }
+
+    .grid-lateral-item {
+        grid-area: lateral;
+        background-color: white;
+    }
+
+    .grid-footer-item {
+        grid-area: footer;
+        background-color: red;
+    }
+
+    .main-flex-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .pokedex {
+        border: solid black;
+        background-color: red;
+        height: 420px;
+        width: 300px;
+        border-radius: 10%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10%;
+    }
+
+    .visor {
+        display: flex;
+        justify-content: center;
+        margin-top: 10%;
+        height: 180px;
+        width: 220px;
+        border: solid grat;
+        background-color: white;
+        border-radius: 10%;
+    }
+    .side-flex {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+<script>
+    function buscarPokemon() {
+        const namePokemon = document.getElementById("namePokemon").value
+
+        $.ajax({
+            url: "https://pokeapi.co/api/v2/pokemon/" + namePokemon,
+            type: "get",
+            success: function (result) {
+
+                document.getElementById("imagemPoke").src = result.sprites.front_default
+
+                const textoResultado = `
+                <ul>
+                    <li>${result.name}</li>
+                    
+                </ul>
+                `
+                document.getElementById("resultado").innerHTML = textoResultado
+            }
+        });
+    }
+</script>
