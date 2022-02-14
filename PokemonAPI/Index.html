@@ -17,10 +17,18 @@
                 <img id="imagemPoke" src="" alt="">
             </div>
             <div clas="botao-dex"></div>
-        </div>
-        <div class="busca">
-            <input id="namePokemon" type="text">
-            <button onclick="buscarPokemon()" id="search_button">Buscar</button>
+
+            <div class="busca">
+                <input id="namePokemon" type="text">
+                <button onclick="buscarPokemon()" id="search_button">Buscar</button>
+            </div>
+            <div id="resultado">
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
         </div>
     </main>
     <side class="grid-lateral-item side-flex">
@@ -81,6 +89,7 @@
     }
 
     .pokedex {
+        flex-direction: column;
         border: solid black;
         background-color: red;
         height: 420px;
@@ -91,16 +100,39 @@
         margin-bottom: 10%;
     }
 
+    #imagemPoke {
+        flex-grow: 1;
+    }
+
     .visor {
         display: flex;
         justify-content: center;
-        margin-top: 10%;
+        margin-top: 20%;
+        margin-left: 12%;
         height: 180px;
         width: 220px;
-        border: solid grat;
+        border: solid;
         background-color: white;
+        border: solid black;
         border-radius: 10%;
     }
+
+    .busca {
+        margin-top: 5%;
+        display: flex;
+        justify-content: center;
+        border-radius: 10%;
+
+    }
+
+    #resultado {
+        display: flex;
+        justify-content: center;
+        font-size: x-large;
+        font-weight: bold;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
     .side-flex {
         display: flex;
         flex-direction: column;
@@ -119,12 +151,24 @@
 
                 const textoResultado = `
                 <ul>
+
                     <li>${result.name}</li>
-                    
+                    <li>${result.moves[3].move.name}</li>
+                    <li>${buscarTipos(result.types)}</li>
+                                    
                 </ul>
                 `
                 document.getElementById("resultado").innerHTML = textoResultado
             }
         });
+    }
+
+    function buscarTipos(tipos) {
+        let textoTipos = "<ol>"
+        tipos.forEach(tipo => {
+            textoTipos += "<li>" + tipo.type.name + "</li>"
+        });
+        return textoTipos + "</ol>"
+
     }
 </script>
